@@ -22,6 +22,10 @@ class MagnifyingGlass {
   }
 
   void drawMe() {
+    
+    fill(0);
+    noStroke();
+    rect(this.x-radius*4000, this.y-5, 100, 10);
     lensQuality();
     ellipse(this.x, this.y,this.radius*4000,30);
     }

@@ -13,8 +13,8 @@ class Smoke {
     this.y2 = this.y1+random(-15,-5);
     this.x3 = this.x1+random(0,15);
     this.y3 = this.y1+random(-5,5);
-    this.vX=random(-1,1);
-    this.vY=random(-5,-1);
+    this.vX = random(-1,1);
+    this.vY = random(-5,-1);
     int colorIndex = int(random(0,smokeColours.length));
     this.c = smokeColours[colorIndex];
 
