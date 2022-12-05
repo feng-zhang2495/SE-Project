@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
+import g4p_controls.*;
 
-//E = hf
+// E = hf
 float h = 6.63*pow(10,-34); // Planck's Constant
 float f = pow(10,18); 
 
@@ -20,6 +21,7 @@ ArrayList<Spark> sparkList = new ArrayList<Spark>();
   
 void setup() {
   size(800,800);
+  createGUI();
 }
 
 void draw() {  
