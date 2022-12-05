@@ -1,36 +1,44 @@
 class MagnifyingGlass {
   float glassArea;
-  float lensQuality;
+  String lensQuality;
   float x, y;
-	float radius;
+  float focalX,focalY;
+  float radius; //in m
+  float numPhotonsHittingGlass; //per second
 
 
-  MagnifyingGlass(float r, float g, String l,float x, float y) {
-    this.glassArea = 3.14*pow(this.radius,2);
+  MagnifyingGlass(float r, String l,float xVal, float yVal, float focalLength) {
+    //focal length is in cm
+    
+    this.radius = r;
+    this.glassArea = PI*pow(this.radius,2);
     this.lensQuality = l;
-    this.x = 140;
-    this.y = 80;
+    this.x = xVal;
+    this.y = yVal;
+    this.focalX = xVal;
+    this.focalY = yVal+8*focalLength;
+    this.numPhotonsHittingGlass = this.glassArea*photonsPerMetersSquared;
+    //println(width,this.x,this.y);
   }
 
   void drawMe() {
     lensQuality();
-    ellipse(150,300,x,y)；
-  }
+    ellipse(this.x, this.y,this.radius*4000,30);
+    }
 
   void lensQuality(){
-    if(this.lensQuality == Clear){
+    if(this.lensQuality.equals("Clear")){
       fill(172, 252, 252);
     }
-    else if(this.lensQuality == Transparent){
+    else if(this.lensQuality.equals("Transparent")){
       fill(220, 247, 247);
     }
-    else if(this.lensQuality == impurities){
+    else if(this.lensQuality.equals("Impurities")){
       fill(89, 135, 135);
     }
-    else if(this.lensQuality == Vague){
+    else if(this.lensQuality.equals("Vague")){
       fill(89, 127, 143);
     }
-    
   }
   
 }
