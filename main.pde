@@ -13,6 +13,10 @@ float surroundingTemperature = 25;
 
 MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
 Material grass = new Material(2, 0.79496, 100, "grass", magnifyingGlass);
+Material wood = new Material(2, 1.76, 100, "wood", magnifyingGlass);
+Material paper = new Material(2, 1.336, 100, "paper", magnifyingGlass);
+
+
 Ray ray = new Ray(magnifyingGlass);
 
 Boolean running = true;
