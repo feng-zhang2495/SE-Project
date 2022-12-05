@@ -1,11 +1,13 @@
 // GLOBAL VARIABLES
 import g4p_controls.*;
 
-// E = hf
-float h = 6.63*pow(10,-34); // Planck's Constant
-float f = pow(10,18); 
+// E = hf,  f = c/wavelength
+float h = 6.626*pow(10,-34); // Planck's Constant
+float wavelength = pow(10, -8);
+float c = 3*pow(10, 8);
+float f = c/wavelength;
 
-float photonsPerMetersSquared = 3.6*pow(10,18); //num photons hitting glass per second in typical outdoor brightness
+float photonsPerMetersSquared = 3.6*pow(10,21); //num photons hitting glass per second in typical outdoor brightness
 float conversionEfficiency = 0.003; //amount of light energy turning into heat
 float surroundingTemperature = 25;
 
@@ -65,4 +67,14 @@ void drawOneLine(int x, int y) {
     }
     //y-=10;
   }
+}
+
+// Resets the animation
+void reset() {
+  magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
+  grass = new Material(2, 0.79496, 100, "grass", magnifyingGlass);
+  ray = new Ray(magnifyingGlass);
+  
+  smokeList = new ArrayList<Smoke>();
+  sparkList = new ArrayList<Spark>();
 }

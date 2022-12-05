@@ -19,11 +19,24 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
 } //_CODE_:window1:415860:
 
 public void resetButtonClicked(GButton source, GEvent event) { //_CODE_:resetButton:557633:
-  println("resetButton - GButton >> GEvent." + event + " @ " + millis());
+  reset();
 } //_CODE_:resetButton:557633:
 
 public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseButton:691105:
-  println("pauseButton - GButton >> GEvent." + event + " @ " + millis());
+  // If the animation is running, stop the animation
+  if(running) {
+    running = !running;
+    noLoop();
+    pauseButton.setText("Resume");
+  }
+  
+  // If the animation is stopped, continute the animation
+  else {
+    running = !running;
+    loop();
+    pauseButton.setText("Pause");
+  }
+  
 } //_CODE_:pauseButton:691105:
 
 public void lensThicknessSliderChanged(GSlider source, GEvent event) { //_CODE_:lensThicknessSlider:348237:

@@ -7,8 +7,9 @@ class Material {
   String option; //wood,paper,ants or grass
   MagnifyingGlass glass;
   float x1,y1;
-  float w,h;
+  float w,hei;
   float beamIntensity;
+  float wavelength;
 
   ArrayList<Smoke> smokeList = new ArrayList<Smoke>();
   ArrayList<Spark> sparkList = new ArrayList<Spark>();
@@ -25,9 +26,10 @@ class Material {
     this.x1 = 300;
     this.y1 = 450;
     this.w = 200;
-    this.h = 100;
+    this.hei = 100;
     this.beamIntensity = 1;
     this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity)/(this.mass * this.heatCapacity);
+    println(h);
     this.temperatureInitial = surroundingTemperature;
     this.temperatureFinal = this.temperatureInitial;
   }
@@ -67,14 +69,16 @@ class Material {
 
   void updateMe() {
     // Checks if the focal point of the mirror is on the material 
-    boolean burning = ((this.glass.focalX>this.x1 && this.glass.focalX<this.x1+this.w) && (this.glass.focalY>this.y1 && this.glass.focalY<this.y1+this.h));
+    boolean burning = ((this.glass.focalX>this.x1 && this.glass.focalX<this.x1+this.w) && (this.glass.focalY>this.y1 && this.glass.focalY<this.y1+this.hei));
     
-    //println(this.glass.focalX,this.glass.focalY);
-    //println(burning);
+    // Updates the temperature label on the GUI
+    currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
+    
     
     if(burning){
       this.temperatureFinal += temperatureIncrease;
-      //println("final temp:",this.temperatureFinal);
+      println(temperatureIncrease);
+      println("final temp:",this.temperatureFinal);
     }
     
     if (this.temperatureFinal > this.ignitionTemperature) {
@@ -116,7 +120,7 @@ class Material {
     strokeWeight(1);
     stroke(0);
     fill(140, 194, 93);
-    rect(this.x1,this.y1,this.w,this.h);
+    rect(this.x1,this.y1,this.w,this.hei);
   }
   
   // Draws the wood material
@@ -124,7 +128,7 @@ class Material {
     strokeWeight(1);
     stroke(0);
     fill(232, 170, 108);
-    rect(this.x1,this.y1,this.w,this.h);
+    rect(this.x1,this.y1,this.w,this.hei);
   }
   
   // Draws the "ant" material 
@@ -132,7 +136,7 @@ class Material {
     strokeWeight(1);
     stroke(0);
     fill(0);
-    rect(this.x1,this.y1,this.w,this.h);
+    rect(this.x1,this.y1,this.w,this.hei);
   }
   
   // Draws the paper material 
@@ -140,6 +144,6 @@ class Material {
     strokeWeight(1);
     stroke(0);
     fill(241, 238, 235);
-    rect(this.x1,this.y1,this.w,this.h);
+    rect(this.x1,this.y1,this.w,this.hei);
   }
 }
