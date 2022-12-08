@@ -13,10 +13,6 @@ float surroundingTemperature = 25;
 
 MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
 Material grass = new Material(2, 0.79496, 100, "grass", magnifyingGlass);
-Material wood = new Material(2, 1.76, 100, "wood", magnifyingGlass);
-Material paper = new Material(2, 1.336, 100, "paper", magnifyingGlass);
-
-
 Ray ray = new Ray(magnifyingGlass);
 
 Boolean running = true;
@@ -34,11 +30,13 @@ void draw() {
   // Draws all the stuff in the ground
   drawBackground();
   magnifyingGlass.drawMe();
-  grass.drawMe();
+  material.drawMe();
   ray.drawMe();
   
+  
   // Updates all the calculations and the positions for the next frame
-  grass.updateMe();
+  material.updateMe();
+  
 }
 
 void drawBackground() {
@@ -48,7 +46,7 @@ void drawBackground() {
   
   
   for(int z = 0; z < 15; z++){
-    drawOneLine(x,y);
+    drawOneLine(x,width,y);
     y += 15;
   }
   
@@ -59,24 +57,33 @@ void drawBackground() {
 }
 
 // Draws the triangular grass
-void drawOneLine(int x, int y) {
-  fill(44, 163, 60);
+void drawOneLine(int x1, int x2, int y) {
+  if(x2==width){
+    fill(44, 163, 60);
+  }
+  else{
+    fill(140, 194, 93);
+  }
+  
   strokeWeight(1);
   stroke(0);
-  
-  for(int i = 0; i < 90; i++) {
-    for(int j = 0; j < 4; j++) {      
-      triangle(x, y, x+5, y-20, x+10, y);
-      x+=10;
-    }
-    //y-=10;
+  int numTriangles = (x2-x1)/10;
+  //println("numTriangles",numTriangles);
+  for(int i=0;i<numTriangles;i++){ //456
+    triangle(x1, y, x1+5, y-20, x1+10, y);
+    x1+=10;
   }
+  //for(int i = 0; i < 90; i++) {
+  //  for(int j = 0; j < 4; j++) { 
+  //  }
+  //  //y-=10;
+  //}
 }
 
 // Resets the animation
 void reset() {
   magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
-  grass = new Material(2, 0.79496, 100, "grass", magnifyingGlass);
+  material = new Material(2,"grass", magnifyingGlass);
   ray = new Ray(magnifyingGlass);
   
   smokeList = new ArrayList<Smoke>();
