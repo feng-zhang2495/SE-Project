@@ -5,6 +5,7 @@
  * designer and care should be taken when editing this file.
  * Only add/edit code inside the event handlers i.e. only
  * use lines between the matching comment tags. e.g.
+
  void myBtnEvents(GButton button) { //_CODE_:button1:12356:
      // It is safe to enter your event code here  
  } //_CODE_:button1:12356:
@@ -13,62 +14,60 @@
  * =========================================================
  */
 
-synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:415860:
+synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:582300:
   appc.background(230);
-} //_CODE_:window1:415860:
+} //_CODE_:window1:582300:
 
-public void resetButtonClicked(GButton source, GEvent event) { //_CODE_:resetButton:557633:
+public void resetButtonClicked(GButton source, GEvent event) { //_CODE_:resetButton:811346:
   reset();
-} //_CODE_:resetButton:557633:
+} //_CODE_:resetButton:811346:
 
-public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseButton:691105:
-  // If the animation is running, stop the animation
+public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseButton:875606:
   if(running) {
     running = !running;
     noLoop();
     pauseButton.setText("Resume");
   }
   
-  // If the animation is stopped, continute the animation
   else {
     running = !running;
     loop();
     pauseButton.setText("Pause");
   }
+} //_CODE_:pauseButton:875606:
+
+public void massSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:massSlider:958855:
+  println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:massSlider:958855:
+
+public void focalDistanceSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:focalDistanceSlider:299666:
+
   
-} //_CODE_:pauseButton:691105:
+} //_CODE_:focalDistanceSlider:299666:
 
-public void lensThicknessSliderChanged(GSlider source, GEvent event) { //_CODE_:lensThicknessSlider:348237:
-  println("lensThicknessSlider - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:lensThicknessSlider:348237:
+public void xPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:xPositionSlider:537864:
+  println("xPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:xPositionSlider:537864:
 
-public void focalDistanceSliderChanged(GSlider source, GEvent event) { //_CODE_:focalDistanceSlider:402570:
-  println("focalDistanceSlider - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:focalDistanceSlider:402570:
+public void yPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:yPositionSlider:494398:
+  println("yPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:yPositionSlider:494398:
 
-public void xPosSliderChanged(GSlider source, GEvent event) { //_CODE_:xPosSlider:614282:
-  println("xPosSlider - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:xPosSlider:614282:
+public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_CODE_:beamIntensitySlider:967979:
+  println("beamIntensitySlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:beamIntensitySlider:967979:
 
-public void yPosSliderChanged(GSlider source, GEvent event) { //_CODE_:yPosSlider:334502:
-  println("yPosSlider - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:yPosSlider:334502:
+public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:materialChoice:221684:
+  println("materialChoice - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:materialChoice:221684:
 
-public void lightBeamSliderChanged(GSlider source, GEvent event) { //_CODE_:lightBeamSlider:413593:
-  println("lightBeamSlider - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:lightBeamSlider:413593:
+public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glassQuality:419836:
+  println("glassQuality - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:glassQuality:419836:
 
-public void materialListChanged(GDropList source, GEvent event) { //_CODE_:materialList:648516:
-  println("materialList - GDropList >> GEvent." + event + " @ " + millis());
-} //_CODE_:materialList:648516:
-
-public void startingTemperatureTextChanged(GTextArea source, GEvent event) { //_CODE_:startingTemeperatureText:610077:
-  println("startingTemeperatureText - GTextArea >> GEvent." + event + " @ " + millis());
-} //_CODE_:startingTemeperatureText:610077:
-
-public void glassQualityListChanged(GDropList source, GEvent event) { //_CODE_:glassQualityList:938200:
-  println("glassQualityList - GDropList >> GEvent." + event + " @ " + millis());
-} //_CODE_:glassQualityList:938200:
+public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
+  println("surroundingTemperature - GTextArea >> GEvent." + event + " @ " + millis());
+} //_CODE_:surroundingTemp:986421:
 
 
 
@@ -79,98 +78,99 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window1 = GWindow.getWindow(this, "Window title", 0, 0, 300, 500, JAVA2D);
+  window1 = GWindow.getWindow(this, "Window title", 0, 0, 350, 400, JAVA2D);
   window1.noLoop();
   window1.setActionOnClose(G4P.KEEP_OPEN);
   window1.addDrawHandler(this, "win_draw1");
-  resetButton = new GButton(window1, 15, 15, 65, 30);
+  resetButton = new GButton(window1, 10, 10, 80, 30);
   resetButton.setText("Reset");
   resetButton.addEventHandler(this, "resetButtonClicked");
-  pauseButton = new GButton(window1, 90, 15, 65, 30);
+  pauseButton = new GButton(window1, 100, 10, 80, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonClicked");
-  currentTemperatureLabel = new GLabel(window1, 150, 15, 150, 20);
-  currentTemperatureLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  currentTemperatureLabel.setText("Current Temperature");
-  currentTemperatureLabel.setOpaque(false);
-  currentTemperature = new GLabel(window1, 185, 38, 80, 20);
+  temperatureLabel = new GLabel(window1, 200, 10, 140, 20);
+  temperatureLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  temperatureLabel.setText("Current Temperature");
+  temperatureLabel.setOpaque(false);
+  currentTemperature = new GLabel(window1, 230, 30, 80, 20);
   currentTemperature.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  currentTemperature.setText("0 C");
+  currentTemperature.setText("25 C");
   currentTemperature.setOpaque(false);
-  lensThicknessSlider = new GSlider(window1, 15, 80, 150, 40, 10.0);
-  lensThicknessSlider.setShowValue(true);
-  lensThicknessSlider.setLimits(1.0, 1.0, 5.0);
-  lensThicknessSlider.setShowTicks(true);
-  lensThicknessSlider.setNumberFormat(G4P.DECIMAL, 2);
-  lensThicknessSlider.setOpaque(false);
-  lensThicknessSlider.addEventHandler(this, "lensThicknessSliderChanged");
-  lensThicknessLabel = new GLabel(window1, 15, 65, 150, 10);
-  lensThicknessLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  lensThicknessLabel.setText("Lens Thickness");
-  lensThicknessLabel.setOpaque(false);
-  focalDistanceSlider = new GSlider(window1, 15, 150, 150, 40, 10.0);
+  massSlider = new GCustomSlider(window1, 10, 60, 160, 40, "grey_blue");
+  massSlider.setShowValue(true);
+  massSlider.setLimits(2.0, 2.0, 100.0);
+  massSlider.setShowTicks(true);
+  massSlider.setNumberFormat(G4P.DECIMAL, 2);
+  massSlider.setOpaque(false);
+  massSlider.addEventHandler(this, "massSliderChanged");
+  label1 = new GLabel(window1, 50, 50, 80, 20);
+  label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label1.setText("Mass (g)");
+  label1.setOpaque(false);
+  focalDistanceSlider = new GCustomSlider(window1, 10, 130, 160, 40, "grey_blue");
   focalDistanceSlider.setShowValue(true);
-  focalDistanceSlider.setLimits(100.0, 100.0, 200.0);
-  focalDistanceSlider.setStickToTicks(true);
+  focalDistanceSlider.setLimits(20.0, 20.0, 50.0);
   focalDistanceSlider.setShowTicks(true);
   focalDistanceSlider.setNumberFormat(G4P.DECIMAL, 2);
   focalDistanceSlider.setOpaque(false);
   focalDistanceSlider.addEventHandler(this, "focalDistanceSliderChanged");
-  focalDistanceLabel = new GLabel(window1, 15, 135, 150, 10);
+  focalDistanceLabel = new GLabel(window1, 30, 120, 120, 20);
   focalDistanceLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  focalDistanceLabel.setText("Focal Distance ");
+  focalDistanceLabel.setText("Focal Distance");
   focalDistanceLabel.setOpaque(false);
-  xPosSlider = new GSlider(window1, 15, 220, 150, 40, 10.0);
-  xPosSlider.setShowValue(true);
-  xPosSlider.setLimits(100.0, 50.0, 500.0);
-  xPosSlider.setShowTicks(true);
-  xPosSlider.setNumberFormat(G4P.DECIMAL, 2);
-  xPosSlider.setOpaque(false);
-  xPosSlider.addEventHandler(this, "xPosSliderChanged");
-  xPosLabel = new GLabel(window1, 15, 205, 150, 10);
-  xPosLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  xPosLabel.setText("x-position");
-  xPosLabel.setOpaque(false);
-  yPosSlider = new GSlider(window1, 15, 290, 150, 40, 10.0);
-  yPosSlider.setLimits(100.0, 100.0, 500.0);
-  yPosSlider.setNumberFormat(G4P.DECIMAL, 2);
-  yPosSlider.setOpaque(false);
-  yPosSlider.addEventHandler(this, "yPosSliderChanged");
-  yPosLabel = new GLabel(window1, 15, 275, 150, 10);
-  yPosLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  yPosLabel.setText("y-position");
-  yPosLabel.setOpaque(false);
-  lightBeamSlider = new GSlider(window1, 15, 360, 150, 40, 10.0);
-  lightBeamSlider.setLimits(0.5, 0.0, 1.0);
-  lightBeamSlider.setNumberFormat(G4P.DECIMAL, 2);
-  lightBeamSlider.setOpaque(false);
-  lightBeamSlider.addEventHandler(this, "lightBeamSliderChanged");
-  lightBeamLabel = new GLabel(window1, 15, 345, 150, 10);
-  lightBeamLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  lightBeamLabel.setText("Light Beam Intensity");
-  lightBeamLabel.setOpaque(false);
-  materialList = new GDropList(window1, 190, 101, 90, 80, 3, 10);
-  materialList.setItems(loadStrings("list_648516"), 0);
-  materialList.addEventHandler(this, "materialListChanged");
-  materialChoiceLabel = new GLabel(window1, 185, 75, 100, 20);
+  xPositionSlider = new GCustomSlider(window1, 10, 200, 160, 40, "grey_blue");
+  xPositionSlider.setLimits(300.0, 200.0, 600.0);
+  xPositionSlider.setNumberFormat(G4P.DECIMAL, 2);
+  xPositionSlider.setOpaque(false);
+  xPositionSlider.addEventHandler(this, "xPositionSliderChanged");
+  xPositionLabel = new GLabel(window1, 50, 190, 80, 20);
+  xPositionLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  xPositionLabel.setText("x-position");
+  xPositionLabel.setOpaque(false);
+  yPositionSlider = new GCustomSlider(window1, 10, 270, 160, 40, "grey_blue");
+  yPositionSlider.setShowValue(true);
+  yPositionSlider.setLimits(200.0, 150.0, 350.0);
+  yPositionSlider.setNumberFormat(G4P.DECIMAL, 2);
+  yPositionSlider.setOpaque(false);
+  yPositionSlider.addEventHandler(this, "yPositionSliderChanged");
+  yPositionLabel = new GLabel(window1, 50, 260, 80, 20);
+  yPositionLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  yPositionLabel.setText("y-position");
+  yPositionLabel.setOpaque(false);
+  beamIntensitySlider = new GCustomSlider(window1, 10, 340, 160, 40, "grey_blue");
+  beamIntensitySlider.setShowValue(true);
+  beamIntensitySlider.setLimits(0.1, 0.1, 2.0);
+  beamIntensitySlider.setShowTicks(true);
+  beamIntensitySlider.setNumberFormat(G4P.DECIMAL, 2);
+  beamIntensitySlider.setOpaque(false);
+  beamIntensitySlider.addEventHandler(this, "beamIntensitySliderChanged");
+  beamIntensityLabel = new GLabel(window1, 10, 330, 160, 20);
+  beamIntensityLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  beamIntensityLabel.setText("Light Beam Intensity");
+  beamIntensityLabel.setOpaque(false);
+  materialChoice = new GDropList(window1, 200, 100, 130, 100, 4, 10);
+  materialChoice.setItems(loadStrings("list_221684"), 0);
+  materialChoice.addEventHandler(this, "materialChoiceClicked");
+  materialChoiceLabel = new GLabel(window1, 210, 80, 110, 20);
   materialChoiceLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   materialChoiceLabel.setText("Material Choice");
   materialChoiceLabel.setOpaque(false);
-  startingTemperatureLabel = new GLabel(window1, 185, 200, 100, 20);
-  startingTemperatureLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  startingTemperatureLabel.setText("Starting Temperature");
-  startingTemperatureLabel.setOpaque(false);
-  startingTemeperatureText = new GTextArea(window1, 185, 220, 100, 30, G4P.SCROLLBARS_NONE);
-  startingTemeperatureText.setText("25 C");
-  startingTemeperatureText.setOpaque(true);
-  startingTemeperatureText.addEventHandler(this, "startingTemperatureTextChanged");
-  qualityLabel = new GLabel(window1, 185, 270, 100, 20);
-  qualityLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  qualityLabel.setText("Glass Quality");
-  qualityLabel.setOpaque(false);
-  glassQualityList = new GDropList(window1, 185, 295, 100, 80, 3, 10);
-  glassQualityList.setItems(loadStrings("list_938200"), 0);
-  glassQualityList.addEventHandler(this, "glassQualityListChanged");
+  glassQuality = new GDropList(window1, 200, 300, 130, 80, 3, 10);
+  glassQuality.setItems(loadStrings("list_419836"), 0);
+  glassQuality.addEventHandler(this, "glassQualityChanged");
+  glassQualityLabel = new GLabel(window1, 210, 280, 110, 20);
+  glassQualityLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  glassQualityLabel.setText("Glass Quality");
+  glassQualityLabel.setOpaque(false);
+  surroundingTempLabel = new GLabel(window1, 180, 210, 160, 20);
+  surroundingTempLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  surroundingTempLabel.setText("Surrounding Temperature");
+  surroundingTempLabel.setOpaque(false);
+  surroundingTemp = new GTextArea(window1, 220, 230, 80, 40, G4P.SCROLLBARS_NONE);
+  surroundingTemp.setText("25");
+  surroundingTemp.setPromptText("Surrounding Temperature ");
+  surroundingTemp.setOpaque(true);
+  surroundingTemp.addEventHandler(this, "surroundingTempChanged");
   window1.loop();
 }
 
@@ -179,21 +179,21 @@ public void createGUI(){
 GWindow window1;
 GButton resetButton; 
 GButton pauseButton; 
-GLabel currentTemperatureLabel; 
+GLabel temperatureLabel; 
 GLabel currentTemperature; 
-GSlider lensThicknessSlider; 
-GLabel lensThicknessLabel; 
-GSlider focalDistanceSlider; 
+GCustomSlider massSlider; 
+GLabel label1; 
+GCustomSlider focalDistanceSlider; 
 GLabel focalDistanceLabel; 
-GSlider xPosSlider; 
-GLabel xPosLabel; 
-GSlider yPosSlider; 
-GLabel yPosLabel; 
-GSlider lightBeamSlider; 
-GLabel lightBeamLabel; 
-GDropList materialList; 
+GCustomSlider xPositionSlider; 
+GLabel xPositionLabel; 
+GCustomSlider yPositionSlider; 
+GLabel yPositionLabel; 
+GCustomSlider beamIntensitySlider; 
+GLabel beamIntensityLabel; 
+GDropList materialChoice; 
 GLabel materialChoiceLabel; 
-GLabel startingTemperatureLabel; 
-GTextArea startingTemeperatureText; 
-GLabel qualityLabel; 
-GDropList glassQualityList; 
+GDropList glassQuality; 
+GLabel glassQualityLabel; 
+GLabel surroundingTempLabel; 
+GTextArea surroundingTemp; 

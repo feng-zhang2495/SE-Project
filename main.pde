@@ -46,14 +46,15 @@ void draw() {
 }
 
 void getValuesFromGUI() {
-  xPosGlass = xPosSlider.getValueF(); 
-  yPosGlass = yPosSlider.getValueF();
+  xPosGlass = xPositionSlider.getValueF(); 
+  yPosGlass = yPositionSlider.getValueF();
   
   // Updates the values in magnifying glass class
   magnifyingGlass.x = xPosGlass;
   magnifyingGlass.y = yPosGlass;
   magnifyingGlass.focalX = xPosGlass;
-  magnifyingGlass.focalY = yPosGlass + 8 * magnifyingGlass.focalLength;
+  //magnifyingGlass.focalY = yPosGlass + 8 * magnifyingGlass.focalLength;
+  magnifyingGlass.focalY = yPosGlass + 5 * focalDistanceSlider.getValueF();
 }
 
 void drawBackground() {
