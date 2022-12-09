@@ -11,6 +11,7 @@ class Ray {
   void drawMe() {
     int numLines = 12;
     float deltaX = 140/12;
+    float increment = 0;
     float x  = 400-(numLines/2)*deltaX+5;
     int color1 = int(random(235,245));
     int color2 = int(random(240,250));
@@ -24,9 +25,10 @@ class Ray {
     stroke(255,0,0);
     
     for(int i = 0; i < numLines; i++){
-      line(x, 80, x, 300);
-      line(x, 300, this.glass.focalX, this.glass.focalY);
+      line(x, 80, this.glass.focalX - this.glass.radius * 2000 + increment, this.glass.y);
+      line(this.glass.focalX - this.glass.radius * 2000 + increment, this.glass.y, this.glass.focalX,this.glass.focalY);
       x += deltaX;
+      increment += deltaX;
     }
     
     // Focal point
