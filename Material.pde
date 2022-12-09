@@ -103,14 +103,18 @@ class Material {
     else{
       //estimate an ellipse around ant, check if focal point is within the ellipse
       burning = false;  
-  }
+    }
     
-    // Updates the temperature label on the GUI
-    currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
+    
     
     
     if(burning){
+      
+    
       if(this.temperatureFinal < this.maximumTemperature){
+        // Updates the temperature label on the GUI
+        currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
+      
         this.temperatureFinal += temperatureIncrease;
         println(temperatureIncrease);
         println("final temp:",this.temperatureFinal);

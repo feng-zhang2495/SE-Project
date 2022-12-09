@@ -3,20 +3,22 @@ class MagnifyingGlass {
   String lensQuality;
   float x, y;
   float focalX,focalY;
+  float focalLength;
   float radius; //in m
   float numPhotonsHittingGlass; //per second
 
 
-  MagnifyingGlass(float r, String l,float xVal, float yVal, float focalLength) {
+  MagnifyingGlass(float r, String l, float focalLength) {
     //focal length is in cm
     
     this.radius = r;
     this.glassArea = PI*pow(this.radius,2);
     this.lensQuality = l;
-    this.x = xVal;
-    this.y = yVal;
-    this.focalX = xVal;
-    this.focalY = yVal+8*focalLength;
+    this.x = 300;
+    this.y = 300;
+    this.focalX = this.x;
+    this.focalLength = focalLength;
+    this.focalY = this.y+8*focalLength;
     this.numPhotonsHittingGlass = this.glassArea*photonsPerMetersSquared;
     //println(width,this.x,this.y);
   }
@@ -28,7 +30,7 @@ class MagnifyingGlass {
     rect(this.x-radius*4000, this.y-5, 100, 10);
     lensQuality();
     ellipse(this.x, this.y,this.radius*4000,30);
-    }
+  }
 
   void lensQuality(){
     if(this.lensQuality.equals("Clear")){

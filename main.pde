@@ -11,9 +11,11 @@ float photonsPerMetersSquared = 3.6*pow(10,21); //num photons hitting glass per 
 float conversionEfficiency = 0.003; //amount of light energy turning into heat
 float surroundingTemperature = 25;
 
-MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
-Material grass = new Material(2, 0.79496, 100, "grass", magnifyingGlass);
+MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03, "Clear", 25);
+Material grass = new Material(2, "grass", magnifyingGlass);
 Ray ray = new Ray(magnifyingGlass);
+
+float xPosGlass, yPosGlass;
 
 Boolean running = true;
 
@@ -27,16 +29,31 @@ void setup() {
 }
 
 void draw() {  
+  // Gets the values from the GUI
+  getValuesFromGUI();
+  
+
+  
   // Draws all the stuff in the ground
   drawBackground();
   magnifyingGlass.drawMe();
-  material.drawMe();
+  grass.drawMe();
   ray.drawMe();
   
   
   // Updates all the calculations and the positions for the next frame
-  material.updateMe();
+  grass.updateMe();
+}
+
+void getValuesFromGUI() {
+  xPosGlass = xPosSlider.getValueF(); 
+  yPosGlass = yPosSlider.getValueF();
   
+  // Updates the values in magnifying glass class
+  magnifyingGlass.x = xPosGlass;
+  magnifyingGlass.y = yPosGlass;
+  magnifyingGlass.focalX = xPosGlass;
+  magnifyingGlass.focalY = yPosGlass + 8 * magnifyingGlass.focalLength;
 }
 
 void drawBackground() {
@@ -82,8 +99,8 @@ void drawOneLine(int x1, int x2, int y) {
 
 // Resets the animation
 void reset() {
-  magnifyingGlass = new MagnifyingGlass(0.03,"Clear",400,300,25);
-  material = new Material(2,"grass", magnifyingGlass);
+  magnifyingGlass = new MagnifyingGlass(0.03, "Clear", 25);
+  grass = new Material(2,"grass", magnifyingGlass);
   ray = new Ray(magnifyingGlass);
   
   smokeList = new ArrayList<Smoke>();
