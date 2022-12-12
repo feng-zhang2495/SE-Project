@@ -58,15 +58,43 @@ public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_
 } //_CODE_:beamIntensitySlider:967979:
 
 public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:materialChoice:221684:
-  println("materialChoice - GDropList >> GEvent." + event + " @ " + millis());
+  if (materialChoice.getSelectedText().equals("Ant")) {
+    currentMaterial = "ant";
+  }
+  
+  else if (materialChoice.getSelectedText().equals("Paper")) {
+    currentMaterial = "paper";
+  }
+  
+  else if (materialChoice.getSelectedText().equals("Grass")) {
+    currentMaterial = "grass";
+  }
+  
+  else {
+    currentMaterial = "wood";
+  }
+  
+  reset();
 } //_CODE_:materialChoice:221684:
 
 public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glassQuality:419836:
-  println("glassQuality - GDropList >> GEvent." + event + " @ " + millis());
+  if (glassQuality.getSelectedText().equals("Clear")) {
+    magnifyingGlass.lensQuality = "Clear";
+  }
+  
+  else if (glassQuality.getSelectedText().equals("Impurities")) {
+    magnifyingGlass.lensQuality = "Impurities";
+  }
+  
+  else if (glassQuality.getSelectedText().equals("Dirty")) {
+    magnifyingGlass.lensQuality = "Dirty";
+  }
 } //_CODE_:glassQuality:419836:
 
 public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
-  println("surroundingTemperature - GTextArea >> GEvent." + event + " @ " + millis());
+  surroundingTemperature = float(surroundingTemp.getText());
+  currentTemperature.setText(str(surroundingTemperature));
+  reset();
 } //_CODE_:surroundingTemp:986421:
 
 

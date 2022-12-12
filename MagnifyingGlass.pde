@@ -36,14 +36,13 @@ class MagnifyingGlass {
     if(this.lensQuality.equals("Clear")){
       fill(172, 252, 252);
     }
-    else if(this.lensQuality.equals("Transparent")){
-      fill(220, 247, 247);
-    }
+    
     else if(this.lensQuality.equals("Impurities")){
       fill(89, 135, 135);
     }
-    else if(this.lensQuality.equals("Vague")){
-      fill(89, 127, 143);
+    
+    else if(this.lensQuality.equals("Dirty")){
+      fill(105, 68, 66);
     }
   }
   

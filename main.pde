@@ -11,13 +11,16 @@ float photonsPerMetersSquared = 3.6*pow(10,21); //num photons hitting glass per 
 float conversionEfficiency = 0.003; //amount of light energy turning into heat
 float surroundingTemperature = 25;
 
+String currentMaterial = "grass";
+
 MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03, "Clear", 25);
-Material grass = new Material(2, "grass", magnifyingGlass);
+Material material = new Material(2, currentMaterial, magnifyingGlass);
 Ray ray = new Ray(magnifyingGlass);
 
 float xPosGlass, yPosGlass;
 
 Boolean running = true;
+
 
 
 ArrayList<Smoke> smokeList = new ArrayList<Smoke>();
@@ -32,17 +35,14 @@ void draw() {
   // Gets the values from the GUI
   getValuesFromGUI();
   
-
-  
   // Draws all the stuff in the ground
   drawBackground();
   magnifyingGlass.drawMe();
-  grass.drawMe();
+  material.drawMe();
   ray.drawMe();
   
-  
   // Updates all the calculations and the positions for the next frame
-  grass.updateMe();
+  material.updateMe();
 }
 
 void getValuesFromGUI() {
@@ -53,8 +53,13 @@ void getValuesFromGUI() {
   magnifyingGlass.x = xPosGlass;
   magnifyingGlass.y = yPosGlass;
   magnifyingGlass.focalX = xPosGlass;
-  //magnifyingGlass.focalY = yPosGlass + 8 * magnifyingGlass.focalLength;
   magnifyingGlass.focalY = yPosGlass + 5 * focalDistanceSlider.getValueF();
+  
+  // Updates the mass values 
+  material.mass = massSlider.getValueF();
+  
+  // Updates the light beam intensity
+  material.beamIntensity = beamIntensitySlider.getValueF();
 }
 
 void drawBackground() {
@@ -70,13 +75,13 @@ void drawBackground() {
   
   // Draws the ground and dirt
   rect(0, 500, width, 570);
-  fill(131,101,57);
+  fill(131, 101, 57);
   rect(0, 600, width, height);
 }
 
 // Draws the triangular grass
 void drawOneLine(int x1, int x2, int y) {
-  if(x2==width){
+  if(x2 == width){
     fill(44, 163, 60);
   }
   else{
@@ -85,23 +90,19 @@ void drawOneLine(int x1, int x2, int y) {
   
   strokeWeight(1);
   stroke(0);
-  int numTriangles = (x2-x1)/10;
-  //println("numTriangles",numTriangles);
-  for(int i=0;i<numTriangles;i++){ //456
-    triangle(x1, y, x1+5, y-20, x1+10, y);
-    x1+=10;
+  int numTriangles = (x2 - x1) / 10;
+
+  for(int i=0; i<numTriangles; i++){ 
+    triangle(x1, y, x1 + 5, y - 20, x1 + 10, y);
+    x1 += 10;
   }
-  //for(int i = 0; i < 90; i++) {
-  //  for(int j = 0; j < 4; j++) { 
-  //  }
-  //  //y-=10;
-  //}
 }
 
 // Resets the animation
 void reset() {
-  magnifyingGlass = new MagnifyingGlass(0.03, "Clear", 25);
-  grass = new Material(2,"grass", magnifyingGlass);
+  println(surroundingTemperature);
+  magnifyingGlass = new MagnifyingGlass(0.03, "Clear", surroundingTemperature);
+  material = new Material(2, currentMaterial, magnifyingGlass);
   ray = new Ray(magnifyingGlass);
   
   smokeList = new ArrayList<Smoke>();

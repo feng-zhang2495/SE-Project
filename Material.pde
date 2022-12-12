@@ -2,7 +2,7 @@ class Material {
   // FIELDS
   float mass; //grams
   float heatCapacity; // (J/kg*C)
-  float temperatureInitial,temperatureFinal,temperatureIncrease; //in celsius
+  float temperatureInitial, temperatureFinal, temperatureIncrease; //in celsius
   float ignitionTemperature;
   String option; //wood,paper,ants or grass
   MagnifyingGlass glass;
@@ -46,13 +46,13 @@ class Material {
       this.heatCapacity = 2.11; //ant exoskeleton are made of chitin, comparable to cellulose
       this.vX = 1;  
   }
-    else {
+    else if (this.option.equals("paper")) {
       this.maximumTemperature = 1230;
       this.ignitionTemperature = 233;
       this.heatCapacity = 1.4;
     }
+    
     this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity)/(this.mass * this.heatCapacity);
-    println(temperatureIncrease);
     this.temperatureInitial = surroundingTemperature;
     this.temperatureFinal = this.temperatureInitial;
   }
@@ -92,21 +92,22 @@ class Material {
 
   void updateMe() {
     boolean burning;
+    this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity)/(this.mass * this.heatCapacity);
+    
     // Checks if the focal point of the mirror is on the material 
     if(this.option.equals("grass")||this.option.equals("paper")){
       burning = ((this.glass.focalX>=this.x1 && this.glass.focalX<=this.x1+this.w) && (this.glass.focalY>=this.y1 && this.glass.focalY<=this.y1+this.hei));
     }
+    
     else if (this.option.equals("wood")){
       //use ellipse formula from https://math.stackexchange.com/a/76463
       burning = false;
     }
+    
     else{
       //estimate an ellipse around ant, check if focal point is within the ellipse
       burning = false;  
     }
-    
-    
-    
     
     if(burning){
       
@@ -116,8 +117,8 @@ class Material {
         currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
       
         this.temperatureFinal += temperatureIncrease;
-        println(temperatureIncrease);
-        println("final temp:",this.temperatureFinal);
+        //println(temperatureIncrease);
+        //println("final temp:",this.temperatureFinal);
       }
       
     }
