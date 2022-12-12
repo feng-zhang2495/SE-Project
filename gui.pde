@@ -37,6 +37,10 @@ public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseBut
 } //_CODE_:pauseButton:875606:
 
 public void massSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:massSlider:958855:
+  int m = massSlider.getValueI();
+  material.mass = m;
+  material.w = 20*m;
+  material.hei = 10*m;
   println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:massSlider:958855:
 
@@ -80,19 +84,28 @@ public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:mat
 public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glassQuality:419836:
   if (glassQuality.getSelectedText().equals("Clear")) {
     magnifyingGlass.lensQuality = "Clear";
+    magnifyingGlass.transparency = 1;
   }
   
   else if (glassQuality.getSelectedText().equals("Impurities")) {
     magnifyingGlass.lensQuality = "Impurities";
+    magnifyingGlass.transparency = 0.75;
   }
   
   else if (glassQuality.getSelectedText().equals("Dirty")) {
     magnifyingGlass.lensQuality = "Dirty";
+    magnifyingGlass.transparency = 0.5;
   }
 } //_CODE_:glassQuality:419836:
 
 public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
   surroundingTemperature = float(surroundingTemp.getText());
+  if (surroundingTemperature>60){
+    surroundingTemperature=60;
+  }
+  else if(surroundingTemperature<-20){
+    surroundingTemperature=-20;
+  }
   currentTemperature.setText(str(surroundingTemperature));
   reset();
 } //_CODE_:surroundingTemp:986421:
@@ -126,7 +139,7 @@ public void createGUI(){
   currentTemperature.setOpaque(false);
   massSlider = new GCustomSlider(window1, 10, 70, 160, 50, "grey_blue");
   massSlider.setShowValue(true);
-  massSlider.setLimits(20.0, 2.0, 100.0);
+  massSlider.setLimits(2.0, 2.0, 100.0);
   massSlider.setShowTicks(true);
   massSlider.setNumberFormat(G4P.DECIMAL, 2);
   massSlider.setOpaque(false);

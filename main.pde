@@ -1,14 +1,14 @@
 // GLOBAL VARIABLES
 import g4p_controls.*;
 
-// E = hf,  f = c/wavelength
-float h = 6.626*pow(10,-34); // Planck's Constant
+// E = hf, h = Planck's Constant, f = c/wavelength
+float h = 6.626*pow(10,-34);
 float wavelength = pow(10, -8);
 float c = 3*pow(10, 8);
 float f = c/wavelength;
 
 float photonsPerMetersSquared = 3.6*pow(10,21); //num photons hitting glass per second in typical outdoor brightness
-float conversionEfficiency = 0.003; //amount of light energy turning into heat
+float conversionEfficiency = 0.003; //amount of light energy turning into heat in decimals
 float surroundingTemperature = 25;
 
 String currentMaterial = "grass";
@@ -18,7 +18,6 @@ Material material = new Material(2, currentMaterial, magnifyingGlass);
 Ray ray = new Ray(magnifyingGlass);
 
 float xPosGlass, yPosGlass;
-
 Boolean running = true;
 
 
@@ -68,14 +67,15 @@ void drawBackground() {
   background(114, 220, 252);
   
   
-  for(int z = 0; z < 15; z++){
-    drawOneLine(x,width,y);
-    y += 15;
-  }
+  //for(int z = 0; z < 15; z++){
+  //  drawOneLine(x,width,y);
+  //  y += 15;
+  //}
   
-  // Draws the ground and dirt
+  // Draws the sand
+  fill(255, 239, 189);
   rect(0, 500, width, 570);
-  fill(131, 101, 57);
+  fill(253, 228, 150);
   rect(0, 600, width, height);
 }
 

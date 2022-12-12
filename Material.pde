@@ -25,8 +25,8 @@ class Material {
     this.glass = mg;
     this.x1 = 300;
     this.y1 = 500;
-    this.w = 200;
-    this.hei = 50;
+    this.w = 20*this.mass;
+    this.hei = 10*this.mass;
     this.vX = 0;
     this.beamIntensity = 1;
     
@@ -66,7 +66,7 @@ class Material {
       drawWood();
     }
     else if (this.option.equals("ant")) {
-      drawAnts();
+      drawAnt();
     }
     else {
       drawPaper();
@@ -92,33 +92,33 @@ class Material {
 
   void updateMe() {
     boolean burning;
-    this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity)/(this.mass * this.heatCapacity);
+    this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity*this.glass.transparency)/(this.mass * this.heatCapacity);
     
-    // Checks if the focal point of the mirror is on the material 
+    // Checks if the focal point of the lens is on the material 
     if(this.option.equals("grass")||this.option.equals("paper")){
       burning = ((this.glass.focalX>=this.x1 && this.glass.focalX<=this.x1+this.w) && (this.glass.focalY>=this.y1 && this.glass.focalY<=this.y1+this.hei));
-    }
+        
+  }
     
     else if (this.option.equals("wood")){
-      //use ellipse formula from https://math.stackexchange.com/a/76463
-      burning = false;
+    // check if the focal point is within an ellipse 
+      burning = pow(this.glass.focalX-this.x1,2)/pow(this.w/2,2)+pow(this.glass.focalY-this.y1,2)/pow(this.hei/2,2)<=1;
     }
-    
     else{
-      //estimate an ellipse around ant, check if focal point is within the ellipse
-      burning = false;  
+      //estimates a rectangle around ant, checks if focal point is within the rectangle
+      burning = ((this.glass.focalX>this.x1-10) && (this.glass.focalX<=this.x1+20)) && ((this.glass.focalY>this.y1-5) && (this.glass.focalY>this.y1+5));  
+      println("burning ant:",burning);  
     }
+    println("burning",burning);
     
     if(burning){
-      
-    
       if(this.temperatureFinal < this.maximumTemperature){
         // Updates the temperature label on the GUI
         currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
       
         this.temperatureFinal += temperatureIncrease;
-        //println(temperatureIncrease);
-        //println("final temp:",this.temperatureFinal);
+        println(temperatureIncrease);
+        println("final temp:",this.temperatureFinal);
       }
       
     }
@@ -137,7 +137,7 @@ class Material {
     }
     
     // Draw both smoke and sparks if the temperature of the object is 100 degrees hotter than its ignition temperature
-    if (this.temperatureFinal > this.ignitionTemperature+100) {
+    if (this.temperatureFinal > this.ignitionTemperature+70) {
         if (frameCount%3==0){
         //println("updating smoke and sparks",frameCount);
         sparkList.clear();
@@ -175,36 +175,41 @@ class Material {
   void drawWood() {
     stroke(89, 52, 8);
     strokeWeight(10);
-    ellipse(this.x1+(this.w/2),this.y1+this.hei/2+5,this.w-10,this.hei-10);
-    
+    ellipse(this.x1,this.y1,this.w,this.hei);
     strokeWeight(1);
     fill(232, 170, 108);
     float ellipseW = this.w;
     float ellipseHei = this.hei;
-    int num = 5;
+    int num = int(this.mass);
     for(int i=0;i<num;i++){
-      ellipse(this.x1+(this.w/2),this.y1+this.hei/2,ellipseW,ellipseHei);
+      ellipse(this.x1,this.y1,ellipseW,ellipseHei);
       ellipseW -= 20;
       ellipseHei -= 10;
     }
   }
   
   // Draws the "ant" material 
-  void drawAnts() {
-    if(this.x1==500){
+  void drawAnt() {
+    if(this.temperatureFinal<=this.ignitionTemperature){
+      if(this.x1==500){
       this.vX = -1;
+      }
+      else if (this.x1==300){
+        this.vX = 1;
+        }
+      this.x1+=this.vX;
     }
-    else if (this.x1==300){
-      this.vX = 1;
+    else{
     }
-    this.x1+=this.vX;
-    stroke(0);
-    fill(0);
-    circle(this.x1,this.y1,5);
-    circle(this.x1-5,this.y1,5);
-    circle(this.x1+5,this.y1,5);
-    line(this.x1-5, this.y1,this.x1-10,this.y1-10);
-    line(this.x1-5, this.y1,this.x1,this.y1-10);
+      stroke(0);
+      fill(0);
+      circle(this.x1,this.y1,5);
+      circle(this.x1-5,this.y1,5);
+      circle(this.x1+5,this.y1,5);
+      line(this.x1-5, this.y1,this.x1-10,this.y1-10);
+      line(this.x1-5, this.y1,this.x1,this.y1-10);
+    
+    
   }
   
   // Draws the paper material 

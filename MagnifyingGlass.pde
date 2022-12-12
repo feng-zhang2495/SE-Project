@@ -1,6 +1,7 @@
 class MagnifyingGlass {
   float glassArea;
   String lensQuality;
+  float transparency;
   float x, y;
   float focalX,focalY;
   float focalLength;
@@ -14,6 +15,17 @@ class MagnifyingGlass {
     this.radius = r;
     this.glassArea = PI*pow(this.radius,2);
     this.lensQuality = l;
+    if(this.lensQuality.equals("Clear")){
+      this.transparency = 1;
+    }
+    
+    else if(this.lensQuality.equals("Impurities")){
+      this.transparency = 0.75;
+    }
+    
+    else if(this.lensQuality.equals("Dirty")){
+      this.transparency = 0.5;
+    }
     this.x = 300;
     this.y = 300;
     this.focalX = this.x;
