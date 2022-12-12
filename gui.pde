@@ -124,9 +124,9 @@ public void createGUI(){
   currentTemperature.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   currentTemperature.setText("25 C");
   currentTemperature.setOpaque(false);
-  massSlider = new GCustomSlider(window1, 10, 60, 160, 40, "grey_blue");
+  massSlider = new GCustomSlider(window1, 10, 70, 160, 50, "grey_blue");
   massSlider.setShowValue(true);
-  massSlider.setLimits(2.0, 2.0, 100.0);
+  massSlider.setLimits(20.0, 2.0, 100.0);
   massSlider.setShowTicks(true);
   massSlider.setNumberFormat(G4P.DECIMAL, 2);
   massSlider.setOpaque(false);
@@ -135,7 +135,7 @@ public void createGUI(){
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label1.setText("Mass (g)");
   label1.setOpaque(false);
-  focalDistanceSlider = new GCustomSlider(window1, 10, 130, 160, 40, "grey_blue");
+  focalDistanceSlider = new GCustomSlider(window1, 10, 140, 160, 50, "grey_blue");
   focalDistanceSlider.setShowValue(true);
   focalDistanceSlider.setLimits(20.0, 20.0, 50.0);
   focalDistanceSlider.setShowTicks(true);
@@ -146,7 +146,7 @@ public void createGUI(){
   focalDistanceLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   focalDistanceLabel.setText("Focal Distance");
   focalDistanceLabel.setOpaque(false);
-  xPositionSlider = new GCustomSlider(window1, 10, 200, 160, 40, "grey_blue");
+  xPositionSlider = new GCustomSlider(window1, 10, 210, 160, 50, "grey_blue");
   xPositionSlider.setLimits(300.0, 200.0, 600.0);
   xPositionSlider.setNumberFormat(G4P.DECIMAL, 2);
   xPositionSlider.setOpaque(false);
@@ -155,8 +155,7 @@ public void createGUI(){
   xPositionLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   xPositionLabel.setText("x-position");
   xPositionLabel.setOpaque(false);
-  yPositionSlider = new GCustomSlider(window1, 10, 270, 160, 40, "grey_blue");
-  yPositionSlider.setShowValue(true);
+  yPositionSlider = new GCustomSlider(window1, 10, 280, 160, 50, "grey_blue");
   yPositionSlider.setLimits(200.0, 150.0, 350.0);
   yPositionSlider.setNumberFormat(G4P.DECIMAL, 2);
   yPositionSlider.setOpaque(false);
@@ -165,10 +164,9 @@ public void createGUI(){
   yPositionLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   yPositionLabel.setText("y-position");
   yPositionLabel.setOpaque(false);
-  beamIntensitySlider = new GCustomSlider(window1, 10, 340, 160, 40, "grey_blue");
+  beamIntensitySlider = new GCustomSlider(window1, 10, 350, 160, 50, "grey_blue");
   beamIntensitySlider.setShowValue(true);
-  beamIntensitySlider.setLimits(0.1, 0.1, 2.0);
-  beamIntensitySlider.setShowTicks(true);
+  beamIntensitySlider.setLimits(1.0, 0.1, 2.0);
   beamIntensitySlider.setNumberFormat(G4P.DECIMAL, 2);
   beamIntensitySlider.setOpaque(false);
   beamIntensitySlider.addEventHandler(this, "beamIntensitySliderChanged");
