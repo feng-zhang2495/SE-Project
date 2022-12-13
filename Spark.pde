@@ -24,18 +24,10 @@ class Spark {
   }
 
   // METHODS
+  // Draws a spark using a random shade of red and a randomly generated quadrilateral
   void drawMe(){
     fill(c);
     noStroke();
     quad(x1,y1,x2,y2,x3,y3,x4,y4);
-  }
-  
-  void updatePos(){
-    this.x1 += this.vX;
-    this.y1 += this.vY;
-    this.x2 += this.vX;
-    this.y2 += this.vY;
-    this.x3 += this.vX;
-    this.y3 += this.vY; 
   }
 }

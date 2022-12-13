@@ -9,59 +9,62 @@ float f = c/wavelength;
 
 float photonsPerMetersSquared = 3.6*pow(10,21); //num photons hitting glass per second in typical outdoor brightness
 float conversionEfficiency = 0.003; //amount of light energy turning into heat in decimals
-float surroundingTemperature = 25;
 
+float surroundingTemperature = 25;
 String currentMaterial = "grass";
+float xPosGlass, yPosGlass;
 
 MagnifyingGlass magnifyingGlass = new MagnifyingGlass(0.03, "Clear", 25);
 Material material = new Material(2, currentMaterial, magnifyingGlass);
 Ray ray = new Ray(magnifyingGlass);
 
-float xPosGlass, yPosGlass;
 Boolean running = true;
-
-
 
 ArrayList<Smoke> smokeList = new ArrayList<Smoke>();
 ArrayList<Spark> sparkList = new ArrayList<Spark>();
-  
+
+// Setup
 void setup() {
   size(800,800);
   createGUI();
 }
 
+// Draw 
 void draw() {  
-  // Gets the values from the GUI
+  // Gets the data values from the GUI
   getValuesFromGUI();
   
-  // Draws all the stuff in the ground
+  // Draws the background, magnifying glass, and the material selected
   drawBackground();
   magnifyingGlass.drawMe();
   material.drawMe();
   
-  
-  //Draw Smoke
-  for (int i = 0; i < smokeList.size(); i++){
+  //Draws the smoke coming out from the material and updates its position
+  for(int i = 0; i < smokeList.size(); i++){
     Smoke sm = smokeList.get(i);
     sm.drawMe();
     sm.updatePos();
-    if(sm.y1<50){
+    
+    // If the smoke's y-coordinate is off the screen, remove it from the smokelist
+    if(sm.y1 < 50){
       smokeList.remove(i);
     }
   } 
    
-   //Draw Sparks
-   for (int i = 0; i < sparkList.size(); i++){
+   //Draw the sparks coming out from the material 
+   for(int i = 0; i < sparkList.size(); i++){
       Spark sp = sparkList.get(i);
       sp.drawMe();
    }
-     
+  
+  // Draws the light rays from the magnifying glass
   ray.drawMe();
   
   // Updates all the calculations and the positions for the next frame
   material.updateMe();
 }
 
+// Gets certain values from the GUI every frame
 void getValuesFromGUI() {
   xPosGlass = xPositionSlider.getValueF(); 
   yPosGlass = yPositionSlider.getValueF();
@@ -72,20 +75,27 @@ void getValuesFromGUI() {
   magnifyingGlass.focalX = xPosGlass;
   magnifyingGlass.focalY = yPosGlass + 5 * focalDistanceSlider.getValueF();
   
-  // Updates the mass values 
-  material.mass = massSlider.getValueF();
+  // Gets the mass value from the mass slider 
+  float m = massSlider.getValueF();
+  
+  // Setting the mass, width and height of the material based on the mass
+  material.mass = m;
+  material.w = 20*m;
+  material.hei = 10*m;
+  
+  // Ensuring the material is not too wide or tall
+  if(material.hei > 200) {
+      material.hei = 200;
+    }
+    
+  if(material.w > 300) {
+    material.w = 300;
+  }
 }
 
+// Draws the background of the animation 
 void drawBackground() {
-  int x = 0;
-  int y = 350;
   background(114, 220, 252);
-  
-  
-  //for(int z = 0; z < 15; z++){
-  //  drawOneLine(x,width,y);
-  //  y += 15;
-  //}
   
   // Draws the sand
   fill(255, 239, 189);
@@ -94,20 +104,17 @@ void drawBackground() {
   rect(0, 600, width, height);
 }
 
-// Draws the triangular grass
-void drawOneLine(int x1, int x2, int y) {
-  if(x2 == width){
-    fill(44, 163, 60);
-  }
-  else{
-    fill(140, 194, 93);
-  }
-  
+// Draws one line of triangular grass
+void drawOneLineGrass(int x1, int x2, int y) {
+  fill(140, 194, 93);
   strokeWeight(1);
   stroke(0);
-  int numTriangles = (x2 - x1) / 10;
+  
+  // Finding the total number of triangles in one line
+  int numTriangles = int((x2 - x1) / 10);
 
-  for(int i=0; i<numTriangles; i++){ 
+  // Drawing all the triangles in one line 
+  for(int i = 0; i < numTriangles; i++){ 
     triangle(x1, y, x1 + 5, y - 20, x1 + 10, y);
     x1 += 10;
   }

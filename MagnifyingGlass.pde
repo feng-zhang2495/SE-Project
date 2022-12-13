@@ -14,6 +14,7 @@ class MagnifyingGlass {
     this.radius = r;
     this.glassArea = PI*pow(this.radius,2);
     this.lensQuality = l;
+    
     if(this.lensQuality.equals("Clear")){
       this.transparency = 1;
     }
@@ -33,16 +34,20 @@ class MagnifyingGlass {
     this.focalY = this.y+8*focalLength;
     this.numPhotonsHittingGlass = this.glassArea*photonsPerMetersSquared;
   }
-
-  void drawMe() {
-    
+  
+  // METHODS 
+  // Draws the magnifying glass 
+  void drawMe() {  
     fill(0);
     noStroke();
     rect(this.x-radius*4000, this.y-5, 100, 10);
+    
+    // Fills the lens with a different color depending on the quality
     lensQuality();
     ellipse(this.x, this.y,this.radius*4000,30);
   }
-
+  
+  // Assigns a different fill for the magnifying glass lens based on how clean it is
   void lensQuality(){
     if(this.lensQuality.equals("Clear")){
       fill(172, 252, 252);
@@ -56,5 +61,4 @@ class MagnifyingGlass {
       fill(105, 68, 66);
     }
   }
-  
 }

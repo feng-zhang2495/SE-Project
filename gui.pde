@@ -22,13 +22,16 @@ public void resetButtonClicked(GButton source, GEvent event) { //_CODE_:resetBut
   reset();
 } //_CODE_:resetButton:811346:
 
+// Pause button 
 public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseButton:875606:
+  // If the program is running, stop 
   if(running) {
     running = !running;
     noLoop();
     pauseButton.setText("Resume");
   }
   
+  // If the program is paused, run
   else {
     running = !running;
     loop();
@@ -37,17 +40,10 @@ public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseBut
 } //_CODE_:pauseButton:875606:
 
 public void massSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:massSlider:958855:
-  int m = massSlider.getValueI();
-  material.mass = m;
-  material.w = 20*m;
-  material.hei = 10*m;
-  
-  
-  //println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:massSlider:958855:
 
 public void focalDistanceSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:focalDistanceSlider:299666:
-
   
 } //_CODE_:focalDistanceSlider:299666:
 
@@ -59,13 +55,16 @@ public void yPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE
   println("yPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:yPositionSlider:494398:
 
+// Changes the beamIntensity field in the Material class
 public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_CODE_:beamIntensitySlider:967979:
   float num = beamIntensitySlider.getValueF();
+  
   if(num > 0.1 && num < 2 ) {
     material.beamIntensity = num;
   }
 } //_CODE_:beamIntensitySlider:967979:
 
+// Changes the material field in the Material class
 public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:materialChoice:221684:
   if (materialChoice.getSelectedText().equals("Ant")) {
     currentMaterial = "ant";
@@ -86,6 +85,7 @@ public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:mat
   reset();
 } //_CODE_:materialChoice:221684:
 
+// Changes the magnifying glass quality
 public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glassQuality:419836:
   if (glassQuality.getSelectedText().equals("Clear")) {
     magnifyingGlass.lensQuality = "Clear";
@@ -103,14 +103,18 @@ public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glass
   }
 } //_CODE_:glassQuality:419836:
 
+// Changes the surrounding temperature and resets the simulation
 public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
   surroundingTemperature = float(surroundingTemp.getText());
+  
   if (surroundingTemperature > 60){
     surroundingTemperature = 60;
   }
+  
   else if(surroundingTemperature < -20){
     surroundingTemperature = -20;
   }
+  
   currentTemperature.setText(str(surroundingTemperature));
   reset();
 } //_CODE_:surroundingTemp:986421:
