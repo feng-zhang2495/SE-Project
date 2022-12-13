@@ -41,7 +41,9 @@ public void massSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:mas
   material.mass = m;
   material.w = 20*m;
   material.hei = 10*m;
-  println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  
+  
+  //println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:massSlider:958855:
 
 public void focalDistanceSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:focalDistanceSlider:299666:
@@ -58,7 +60,10 @@ public void yPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE
 } //_CODE_:yPositionSlider:494398:
 
 public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_CODE_:beamIntensitySlider:967979:
-  println("beamIntensitySlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  float num = beamIntensitySlider.getValueF();
+  if(num > 0.1 && num < 2 ) {
+    material.beamIntensity = num;
+  }
 } //_CODE_:beamIntensitySlider:967979:
 
 public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:materialChoice:221684:
@@ -100,11 +105,11 @@ public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glass
 
 public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
   surroundingTemperature = float(surroundingTemp.getText());
-  if (surroundingTemperature>60){
-    surroundingTemperature=60;
+  if (surroundingTemperature > 60){
+    surroundingTemperature = 60;
   }
-  else if(surroundingTemperature<-20){
-    surroundingTemperature=-20;
+  else if(surroundingTemperature < -20){
+    surroundingTemperature = -20;
   }
   currentTemperature.setText(str(surroundingTemperature));
   reset();

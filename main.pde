@@ -38,6 +38,24 @@ void draw() {
   drawBackground();
   magnifyingGlass.drawMe();
   material.drawMe();
+  
+  
+  //Draw Smoke
+  for (int i = 0; i < smokeList.size(); i++){
+    Smoke sm = smokeList.get(i);
+    sm.drawMe();
+    sm.updatePos();
+    if(sm.y1<50){
+      smokeList.remove(i);
+    }
+  } 
+   
+   //Draw Sparks
+   for (int i = 0; i < sparkList.size(); i++){
+      Spark sp = sparkList.get(i);
+      sp.drawMe();
+   }
+     
   ray.drawMe();
   
   // Updates all the calculations and the positions for the next frame
@@ -56,9 +74,6 @@ void getValuesFromGUI() {
   
   // Updates the mass values 
   material.mass = massSlider.getValueF();
-  
-  // Updates the light beam intensity
-  material.beamIntensity = beamIntensitySlider.getValueF();
 }
 
 void drawBackground() {
@@ -100,11 +115,12 @@ void drawOneLine(int x1, int x2, int y) {
 
 // Resets the animation
 void reset() {
-  println(surroundingTemperature);
   magnifyingGlass = new MagnifyingGlass(0.03, "Clear", surroundingTemperature);
   material = new Material(2, currentMaterial, magnifyingGlass);
   ray = new Ray(magnifyingGlass);
   
   smokeList = new ArrayList<Smoke>();
   sparkList = new ArrayList<Spark>();
+  
+  currentTemperature.setText(str(surroundingTemperature));
 }

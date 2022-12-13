@@ -1,4 +1,5 @@
 class MagnifyingGlass {
+  // FIELDS
   float glassArea;
   String lensQuality;
   float transparency;
@@ -8,10 +9,8 @@ class MagnifyingGlass {
   float radius; //in m
   float numPhotonsHittingGlass; //per second
 
-
-  MagnifyingGlass(float r, String l, float focalLength) {
-    //focal length is in cm
-    
+  // CONSTRUCTOR
+  MagnifyingGlass(float r, String l, float focalLength) { 
     this.radius = r;
     this.glassArea = PI*pow(this.radius,2);
     this.lensQuality = l;
@@ -26,13 +25,13 @@ class MagnifyingGlass {
     else if(this.lensQuality.equals("Dirty")){
       this.transparency = 0.5;
     }
+    
     this.x = 300;
     this.y = 300;
     this.focalX = this.x;
     this.focalLength = focalLength;
     this.focalY = this.y+8*focalLength;
     this.numPhotonsHittingGlass = this.glassArea*photonsPerMetersSquared;
-    //println(width,this.x,this.y);
   }
 
   void drawMe() {

@@ -35,6 +35,5 @@ class Ray {
     color(255, 100, 100);
     noStroke();
     circle(this.glass.focalX,this.glass.focalY,5);
-    //println(this.glass.focalX,this.glass.focalY);
   }
 }
