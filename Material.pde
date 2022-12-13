@@ -95,7 +95,6 @@ class Material {
     else {
       // Estimates a circle around an ant and checks if the focal point is within the circle
       burning = (dist(this.glass.focalX, this.glass.focalY, this.x, this.y) < 15); 
-      circle(this.x, this.y, 15);
     }
     
     // If the focal point is on the material and the final temperature is less than the maximum allowed temperature

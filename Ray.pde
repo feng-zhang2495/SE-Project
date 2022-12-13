@@ -24,7 +24,7 @@ class Ray {
     ellipse(400,80,140,140);
     
     fill(255,0,0);
-    strokeWeight(4);
+    strokeWeight(material.beamIntensity + 1);
     stroke(255,0,0);
     
     
