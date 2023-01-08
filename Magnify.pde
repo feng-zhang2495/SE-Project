@@ -27,6 +27,7 @@ ArrayList<Spark> sparkList = new ArrayList<Spark>();
 void setup() {
   size(800,800);
   createGUI();
+  window1.loop();
 }
 
 // Draw 

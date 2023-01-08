@@ -79,7 +79,7 @@ class Material {
   void updateMe() {
     
     // Calculating the temperature increase again, in case any of the variables used changed in the GUI
-    this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity*this.glass.transparency)/(this.mass * this.heatCapacity);
+    this.temperatureIncrease = (this.glass.numPhotonsHittingGlass*conversionEfficiency*h*f*this.beamIntensity*this.glass.transparency)/( this.mass * this.heatCapacity);
     boolean burning;
     
     // Checks if the focal point of the lens is on the material 
@@ -102,13 +102,18 @@ class Material {
       
       
       // Updates the temperature label on the GUI
-      currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
-      this.temperatureFinal += temperatureIncrease;
+      try {
+        currentTemperature.setText(str(round(temperatureFinal*100.0)/100.0) + "\u00B0C");
+        this.temperatureFinal += temperatureIncrease;
+      } catch (Exception e) {
+        println(e);
+      }
+      
+      
     }
     
     // If the temperature is greater than the material's ignition temperature
     if (this.temperatureFinal > this.ignitionTemperature) {
-     
       // Set the ignition point 
       if(ignitionCoordinates == null) {
         ignitionCoordinates = new PVector (this.glass.focalX, this.glass.focalY);
@@ -164,7 +169,6 @@ class Material {
     // Draws the grass
     for(int i = 0; i < int(this.hei/15)+1; i++) {
       drawOneLineGrass(int(this.x), int(this.x + this.w), int(this.y + 15 * i + 5));
-      println(this.hei);
     }
   }
   
