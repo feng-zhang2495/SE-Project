@@ -22,7 +22,6 @@ public void resetButtonClicked(GButton source, GEvent event) { //_CODE_:resetBut
   reset();
 } //_CODE_:resetButton:811346:
 
-// Pause button 
 public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseButton:875606:
   // If the program is running, stop 
   if(running) {
@@ -55,7 +54,6 @@ public void yPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE
   println("yPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:yPositionSlider:494398:
 
-// Changes the beamIntensity field in the Material class
 public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_CODE_:beamIntensitySlider:967979:
   float num = beamIntensitySlider.getValueF();
   
@@ -64,7 +62,6 @@ public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_
   }
 } //_CODE_:beamIntensitySlider:967979:
 
-// Changes the material field in the Material class
 public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:materialChoice:221684:
   if (materialChoice.getSelectedText().equals("Ant")) {
     currentMaterial = "ant";
@@ -85,7 +82,6 @@ public void materialChoiceClicked(GDropList source, GEvent event) { //_CODE_:mat
   reset();
 } //_CODE_:materialChoice:221684:
 
-// Changes the magnifying glass quality
 public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glassQuality:419836:
   if (glassQuality.getSelectedText().equals("Clear")) {
     magnifyingGlass.lensQuality = "Clear";
@@ -103,21 +99,12 @@ public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glass
   }
 } //_CODE_:glassQuality:419836:
 
-// Changes the surrounding temperature and resets the simulation
-public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
-  surroundingTemperature = float(surroundingTemp.getText());
-  
-  if (surroundingTemperature > 60){
-    surroundingTemperature = 60;
-  }
-  
-  else if(surroundingTemperature < -20){
-    surroundingTemperature = -20;
-  }
-  
+public void temperatureSliderChanged(GSlider source, GEvent event) { //_CODE_:temperatureSlider:230192:
+  surroundingTemperature = temperatureSlider.getValueI();
   currentTemperature.setText(str(surroundingTemperature));
   reset();
-} //_CODE_:surroundingTemp:986421:
+  println("slider1 - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:temperatureSlider:230192:
 
 
 
@@ -148,7 +135,7 @@ public void createGUI(){
   currentTemperature.setOpaque(false);
   massSlider = new GCustomSlider(window1, 10, 70, 160, 50, "grey_blue");
   massSlider.setShowValue(true);
-  massSlider.setLimits(2.0, 2.0, 100.0);
+  massSlider.setLimits(20.0, 2.0, 100.0);
   massSlider.setShowTicks(true);
   massSlider.setNumberFormat(G4P.DECIMAL, 2);
   massSlider.setOpaque(false);
@@ -210,15 +197,16 @@ public void createGUI(){
   glassQualityLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   glassQualityLabel.setText("Glass Quality");
   glassQualityLabel.setOpaque(false);
-  surroundingTempLabel = new GLabel(window1, 180, 210, 160, 20);
+  surroundingTempLabel = new GLabel(window1, 186, 205, 160, 20);
   surroundingTempLabel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   surroundingTempLabel.setText("Surrounding Temperature");
   surroundingTempLabel.setOpaque(false);
-  surroundingTemp = new GTextArea(window1, 220, 230, 80, 40, G4P.SCROLLBARS_NONE);
-  surroundingTemp.setText("25");
-  surroundingTemp.setPromptText("Surrounding Temperature ");
-  surroundingTemp.setOpaque(true);
-  surroundingTemp.addEventHandler(this, "surroundingTempChanged");
+  temperatureSlider = new GSlider(window1, 210, 229, 100, 40, 10.0);
+  temperatureSlider.setShowValue(true);
+  temperatureSlider.setLimits(25, -20, 60);
+  temperatureSlider.setNumberFormat(G4P.INTEGER, 0);
+  temperatureSlider.setOpaque(false);
+  temperatureSlider.addEventHandler(this, "temperatureSliderChanged");
   window1.loop();
 }
 
@@ -244,4 +232,4 @@ GLabel materialChoiceLabel;
 GDropList glassQuality; 
 GLabel glassQualityLabel; 
 GLabel surroundingTempLabel; 
-GTextArea surroundingTemp; 
+GSlider temperatureSlider; 
